@@ -123,3 +123,8 @@ Alternatively, instead of installing the Magisk module and running the commands,
 
 - Fix qcoms on Android 12
 - Add A105F on Android 11
+
+### v2.4.0
+
+- Update for Magisk v24.0
+- Misc updates
