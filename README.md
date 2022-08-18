@@ -137,3 +137,9 @@ Alternatively, instead of installing the Magisk module and running the commands,
 
 - Add support to Android 13
 - Optimize debug stuff
+
+### v2.4.3
+
+- Fix qcom detection logic
+- Add gear watch patch support for Magisk Delta fork
+- Fix twrp patch
