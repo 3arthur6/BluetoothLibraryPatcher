@@ -1,2 +1,3 @@
-- Add support to Android 13
-- Optimize debug stuff
+- Fix qcom detection logic
+- Add gear watch patch support for Magisk Delta fork
+- Fix twrp patch
