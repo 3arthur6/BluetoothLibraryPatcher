@@ -45,7 +45,14 @@ search() {
     fi
     lib=$TMPDIR/system/lib$bits/libbluetooth_jni.so
   fi
-  export TMPDIR API IS64BIT lib
+  if $BOOTMODE ; then
+    bb=`magisk --path`/.magisk/busybox/busybox
+  else
+    unzip -p $ZIPFILE busybox.tar.xz|tar x -J -C $TMPDIR busybox
+    chmod 755 $TMPDIR/busybox
+	bb=$TMPDIR/busybox
+  fi
+  export TMPDIR API IS64BIT lib bb
   $TMPDIR/bash $TMPDIR/hexpatch.sh
 }
 

@@ -2,7 +2,6 @@
 # hexpatch script
 # by 3arthur6
 
-bb=/data/adb/magisk/busybox
 qcom=`$bb grep -qw androidboot.hardware=qcom /proc/cmdline && echo 'true' || echo 'false'`
 
 # default(mostly arm64 exynos)=1   arm=2   qcom=3
