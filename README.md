@@ -38,6 +38,11 @@ Alternatively with Android 12L and below, instead of installing the Magisk modul
 
 ## Changelog
 
+### v2.6.4
+
+- Add A14 support
+- Fix some issue with S23
+
 ### v2.6.3
 
 - Add A137F support & fix regressions
