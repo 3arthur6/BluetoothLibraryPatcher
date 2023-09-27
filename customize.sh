@@ -89,7 +89,7 @@ otasurvival() {
     sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`@" \
            -e 's@post_path@lib*|grep -E "\\/(libbluetooth|bluetooth\\.default)\\.so$"|tail -n 1@' $MODPATH/service.sh
   else
-    sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $(magisk --path)/.magisk/mirror/system/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
+    sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
            -e 's@post_path@apex/com.android.btservices.apex@' $MODPATH/service.sh
   fi
   if [[ ! -z $KSU_VER ]] ; then
