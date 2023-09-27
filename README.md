@@ -23,6 +23,9 @@ $ mount -o remount,ro /vendor
 
 Alternatively with Android 12L and below, instead of installing the Magisk module and running the commands, flash the zip file from [this Github repo releases](https://github.com/3arthur6/BluetoothLibraryPatcher/releases) (BluetoothLibraryPatcher_twrp_X.X.X.zip) meant for TWRP recovery.
 
+Another new and easier alternative is to use [Magisk Delta fork](https://huskydg.github.io/magisk-files/).
+With this version of magisk no additional steps are required. Just install the module and enjoy.
+
 ## Credits
 
 - @topjohnwu for magisk
