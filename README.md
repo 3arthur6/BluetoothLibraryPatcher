@@ -33,13 +33,18 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Source code
 
-[Github](https://github.com/Magisk-Modules-Repo/BluetoothLibraryPatcher)
+[Github](https://github.com/3arthur6/BluetoothLibraryPatcher)
 
 ## Support
 
 [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735)
 
 ## Changelog
+
+### v2.6.5
+
+- Add KernelSU support
+- Fix some issues
 
 ### v2.6.4
 
