@@ -3,7 +3,10 @@
 
 check() {
   samsung=`grep -Eqw "androidboot.odin_download|androidboot.warranty_bit|sec_debug" /proc/cmdline && echo 'true' || echo 'false'`
-  if $BOOTMODE ; then
+  if [[ ! -z $KSU_VER ]] ; then
+    ui_print "- KernelSU Manager installation"
+    sys=/system
+  elif $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
     sys=`magisk --path`/.magisk/mirror/system
   else
@@ -40,7 +43,9 @@ search() {
     $TMPDIR/7z x -y -bso0 $TMPDIR/apex_payload.img lib$bits/libbluetooth_jni.so -o$TMPDIR/system
     lib=$TMPDIR/system/lib$bits/libbluetooth_jni.so
   fi
-  if $BOOTMODE ; then
+  if [[ ! -z $KSU_VER ]] ; then
+    bb=/data/adb/ksu/bin/busybox
+  elif $BOOTMODE ; then
     bb=`magisk --path`/.magisk/busybox/busybox
   else
     unzip -p $ZIPFILE busybox.tar.xz|tar x -J -C $TMPDIR busybox
@@ -86,6 +91,9 @@ otasurvival() {
   else
     sed -i "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $(magisk --path)/.magisk/mirror/system/apex/com.android.btservices.apex|cut -d ' ' -f1`@" $MODPATH/service.sh
     sed -i 's@post_path@apex/com.android.btservices.apex@' $MODPATH/service.sh
+  fi
+  if [[ ! -z $KSU_VER ]] ; then
+    sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
   fi
 }
 
