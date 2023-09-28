@@ -90,16 +90,21 @@ otasurvival() {
 }
 
 patchmanifest() {
-  if [[ $MAGISK_VER == *-delta ]] && [[ -d `magisk --path`/.magisk/mirror/early-mount ]] ; then
+  if [[ $MAGISK_VER == *-delta ]] ; then
     ui_print "- Magisk Delta fork detected"
     ui_print "- Applying gear watch fix"
-    mkdir -p `magisk --path`/.magisk/mirror/early-mount/system/vendor/vintf/manifest
+    if `grep "$(magisk --path)/.magisk/early-mount.d" /proc/mounts | grep -q '^early-mount.d/v2'` ; then
+      earlymountdir=$MODPATH/early-mount
+    else
+      earlymountdir=`magisk --path`/.magisk/mirror/early-mount
+    fi
+    mkdir -p $earlymountdir/system/vendor/vintf/manifest
     for i in `grep -lr 'security.wsm' /vendor/etc/vintf`
     do
       if [[ ! -z $i ]] ; then
-        rm -f `magisk --path`/.magisk/mirror/early-mount/system$i
-        cp -af $i `magisk --path`/.magisk/mirror/early-mount/system$i
-        sed -i $((`awk '/security.wsm/ {print FNR}' $i`-1)),/<\/hal>/d `magisk --path`/.magisk/mirror/early-mount/system$i
+        rm -f $earlymountdir/system$i
+        cp -af $i $earlymountdir/system$i
+        sed -i $((`awk '/security.wsm/ {print FNR}' $i`-1)),/<\/hal>/d $earlymountdir/system$i
       fi
     done
   fi
