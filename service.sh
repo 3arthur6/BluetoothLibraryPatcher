@@ -5,7 +5,7 @@
 MODDIR=${0%/*}
 previouslibmd5sum_tmp
 
-if [[ $previouslibmd5sum != `md5sum $(find $(magisk --path)/.magisk/mirror/system/post_path)|cut -d " " -f1` ]] ; then
+if [[ $previouslibmd5sum != `md5sum $(magisk --path)/.magisk/mirror/system/post_path|cut -d " " -f1` ]] ; then
   magisk --install-module $MODDIR/module.zip
 else
   exit

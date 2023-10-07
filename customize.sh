@@ -88,10 +88,10 @@ otasurvival() {
   cp -f $ZIPFILE $MODPATH/module.zip
   if [[ $API -le 32 ]] ; then
     sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`@" \
-           -e 's@post_path@lib*|grep -E "\\/(libbluetooth|bluetooth\\.default)\\.so$"|tail -n 1@' $MODPATH/service.sh
+           -e "s@post_path@`echo $lib|grep -o lib.*.so`@" $MODPATH/service.sh
   else
     sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
-           -e 's@post_path@apex/com.android.btservices.apex@' $MODPATH/service.sh
+           -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
   fi
   if [[ ! -z $KSU_VER ]] ; then
     sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
