@@ -4,7 +4,7 @@
 
 This module attends to avoid losing bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
 
-It patches on the fly the bluetooth library and should support most of samsung devices on android Nougat, Oreo, Pie, 10, 11, 12 and 13.
+It patches on the fly the bluetooth library and should support most of samsung devices on android Nougat, Oreo, Pie, 10, 11, 12, 13 and 14.
 
 This patch is NOT applicable with an aosp rom, only samsung stock/based.
 
