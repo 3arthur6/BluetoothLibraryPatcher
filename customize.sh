@@ -62,6 +62,7 @@ patchlib() {
   post=`grep post_hex $TMPDIR/tmp|cut -d '=' -f2`
   if [[ $pre == already ]] ; then
     ui_print "- Library already (system-ly) patched!"
+    ui_print "- You don't need this Magisk module"
     abort
   elif [[ -f $lib ]] && [[ ! -z $pre ]] ; then
     mod_path=$MODPATH/`echo $lib|grep -o system.*`
