@@ -116,6 +116,11 @@ patchmanifest() {
         sed -i $((`awk '/security.wsm/ {print FNR}' $i`-1)),/<\/hal>/d $earlymountdir/system$i
       fi
     done
+    if `magisk --hide sulist 2>/dev/null` ; then
+      ui_print "- SuList enforced"
+      ui_print "- Adding com.android.bluetooth to SuList"
+      magisk --hide add com.android.bluetooth
+    fi
   fi
 }
 
