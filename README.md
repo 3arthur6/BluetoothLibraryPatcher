@@ -41,10 +41,9 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Changelog
 
-### v2.6.5
+### v2.6.6
 
-- Add KernelSU support
-- Fix some issues
+- Fix Magisk Alpha
 
 ### v2.6.4
 
