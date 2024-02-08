@@ -8,7 +8,12 @@ check() {
     sys=/system
   elif $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
-    sys=`magisk --path`/.magisk/mirror/system
+    if [[ $MAGISK_VER == *-alpha ]] ; then
+      ui_print "- Magisk Alpha fork detected"
+      sys=/system
+    else
+      sys=`magisk --path`/.magisk/mirror/system
+    fi
   else
     ui_print "- Recovery installation"
     sys=`dirname $(find / -mindepth 2 -maxdepth 3 -path "*system/build.prop"|head -1)`
@@ -61,8 +66,14 @@ patchlib() {
   pre=`grep pre_hex $TMPDIR/tmp|cut -d '=' -f2`
   post=`grep post_hex $TMPDIR/tmp|cut -d '=' -f2`
   if [[ $pre == already ]] ; then
-    ui_print "- Library already (system-ly) patched!"
-    ui_print "- You don't need this Magisk module"
+    if [[ $MAGISK_VER == *-alpha ]] ; then
+      ui_print "- You are using Magisk Alpha fork"
+      ui_print "- Try to uninstall the module, reboot and install it again"
+      ui_print "- Or maybe the library is already (system-ly) patched"
+    else
+      ui_print "- Library already (system-ly) patched!"
+      ui_print "- You don't need this Magisk module"
+    fi
     abort
   elif [[ -f $lib ]] && [[ ! -z $pre ]] ; then
     mod_path=$MODPATH/`echo $lib|grep -o system.*`
@@ -84,18 +95,22 @@ patchlib() {
 }
 
 otasurvival() {
-  ui_print "- Creating OTA survival service"
-  cp -f $ZIPFILE $MODPATH/module.zip
-  if [[ $API -le 32 ]] ; then
-    sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`@" \
-           -e "s@post_path@`echo $lib|grep -o lib.*.so`@" $MODPATH/service.sh
+  if [[ $MAGISK_VER == *-alpha ]] ; then
+    rm -rf $MODPATH/service.sh
   else
-    sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
-           -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
-  fi
-  if [[ ! -z $KSU_VER ]] ; then
-    sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
-  fi
+    ui_print "- Creating OTA survival service"
+    cp -f $ZIPFILE $MODPATH/module.zip
+    if [[ $API -le 32 ]] ; then
+      sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`@" \
+             -e "s@post_path@`echo $lib|grep -o lib.*.so`@" $MODPATH/service.sh
+    else
+      sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
+             -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
+    fi
+    if [[ ! -z $KSU_VER ]] ; then
+      sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
+    fi
+   fi
 }
 
 patchmanifest() {
