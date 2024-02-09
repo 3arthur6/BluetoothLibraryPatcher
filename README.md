@@ -41,6 +41,10 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Changelog
 
+### v2.6.8
+
+- Fix support for S24
+
 ### v2.6.7
 
 - Fix Magisk Delta/Kitsune
