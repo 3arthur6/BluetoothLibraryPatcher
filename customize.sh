@@ -8,8 +8,8 @@ check() {
     sys=/system
   elif $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
-    if [[ $MAGISK_VER == *-alpha ]] ; then
-      ui_print "- Magisk Alpha fork detected"
+    if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]]; then
+      ui_print "- Magisk Alpha/Kitsune fork detected"
       sys=/system
     else
       sys=`magisk --path`/.magisk/mirror/system
@@ -66,8 +66,8 @@ patchlib() {
   pre=`grep pre_hex $TMPDIR/tmp|cut -d '=' -f2`
   post=`grep post_hex $TMPDIR/tmp|cut -d '=' -f2`
   if [[ $pre == already ]] ; then
-    if [[ $MAGISK_VER == *-alpha ]] ; then
-      ui_print "- You are using Magisk Alpha fork"
+    if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
+      ui_print "- You are using Magisk Alpha/Kitsune fork"
       ui_print "- Try to uninstall the module, reboot and install it again"
       ui_print "- Or maybe the library is already (system-ly) patched"
     else
@@ -95,7 +95,7 @@ patchlib() {
 }
 
 otasurvival() {
-  if [[ $MAGISK_VER == *-alpha ]] ; then
+  if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
     rm -rf $MODPATH/service.sh
   else
     ui_print "- Creating OTA survival service"
@@ -114,8 +114,8 @@ otasurvival() {
 }
 
 patchmanifest() {
-  if [[ $MAGISK_VER == *-delta ]] ; then
-    ui_print "- Magisk Delta fork detected"
+  if [[ $MAGISK_VER == *-delta ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
+    ui_print "- Magisk Delta/Kitsune fork detected"
     ui_print "- Applying gear watch fix"
     if `grep "$(magisk --path)/.magisk/early-mount.d" /proc/mounts | grep -q '^early-mount.d/v2'` ; then
       earlymountdir=$MODPATH/early-mount
