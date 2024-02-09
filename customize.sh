@@ -33,16 +33,16 @@ check() {
 
 search() {
   ui_print "- Searching for relevant hex byte sequence"
+  $IS64BIT && bits=64
   unzip -q $ZIPFILE hexpatch.sh -d $TMPDIR
   chmod 755 $TMPDIR/hexpatch.sh
   # Executed through bash for array handling
-  unzip -p $ZIPFILE bash.tar.xz|tar x -J -C $TMPDIR bash
+  unzip -p $ZIPFILE bash$bits.tar.xz|tar x -J -C $TMPDIR bash
   chmod 755 $TMPDIR/bash
   if [[ $API -le 32 ]] ; then
     lib=`find $sys/lib*|grep -E "\/(libbluetooth|bluetooth\.default)\.so$"|tail -n 1`
   else
-    bits=`$IS64BIT && echo '64'`
-    unzip -p $ZIPFILE 7z.tar.xz|tar x -J -C $TMPDIR 7z
+    unzip -p $ZIPFILE 7z$bits.tar.xz|tar x -J -C $TMPDIR 7z
     chmod 755 $TMPDIR/7z
     unzip -q $sys/apex/com.android.btservices.apex apex_payload.img -d $TMPDIR
     $TMPDIR/7z x -y -bso0 $TMPDIR/apex_payload.img lib$bits/libbluetooth_jni.so -o$TMPDIR/system
