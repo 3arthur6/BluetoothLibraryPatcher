@@ -113,7 +113,7 @@ otasurvival() {
    fi
 }
 
-patchmanifest() {
+deltafork() {
   if [[ $MAGISK_VER == *-delta ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
     ui_print "- Magisk Delta/Kitsune fork detected"
     ui_print "- Applying gear watch fix"
@@ -131,10 +131,8 @@ patchmanifest() {
         sed -i $((`awk '/security.wsm/ {print FNR}' $i`-1)),/<\/hal>/d $earlymountdir/system$i
       fi
     done
-    if `magisk --hide sulist 2>/dev/null` ; then
-      ui_print "- SuList enforced"
-      ui_print "- Adding com.android.bluetooth to SuList"
-      magisk --hide add com.android.bluetooth
+    ui_print "- Adding com.android.bluetooth to SuList"
+    magiskhide add com.android.bluetooth 2>/dev/null
     fi
   fi
 }
@@ -143,4 +141,4 @@ check
 search
 patchlib
 otasurvival
-patchmanifest
+deltafork
