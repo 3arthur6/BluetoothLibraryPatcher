@@ -41,6 +41,10 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Changelog
 
+### v2.6.9
+
+- Add support for android 14 arm
+
 ### v2.6.8
 
 - Fix support for S24
