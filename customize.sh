@@ -133,7 +133,6 @@ deltafork() {
     done
     ui_print "- Adding com.android.bluetooth to SuList"
     magiskhide add com.android.bluetooth 2>/dev/null
-    fi
   fi
 }
 
