@@ -6,6 +6,9 @@ check() {
   if [[ ! -z $KSU_VER ]] ; then
     ui_print "- KernelSU Manager installation"
     sys=/system
+  elif [[ $APATCH == true ]]; then
+    ui_print "- APatch Manager installation"
+    sys=/system
   elif $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
     if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]]; then
@@ -50,6 +53,8 @@ search() {
   fi
   if [[ ! -z $KSU_VER ]] ; then
     bb=/data/adb/ksu/bin/busybox
+  elif [[ $APATCH == true ]]; then
+    bb=/data/adb/ap/bin/busybox
   elif $BOOTMODE ; then
     bb=`magisk --path`/.magisk/busybox/busybox
   else
@@ -108,6 +113,9 @@ otasurvival() {
              -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
     fi
     if [[ ! -z $KSU_VER ]] ; then
+      sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
+    fi
+    if [[ $APATCH == true ]]; then
       sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
     fi
    fi
