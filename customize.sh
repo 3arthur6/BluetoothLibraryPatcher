@@ -8,8 +8,10 @@ check() {
     sys=/system
   elif $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
-    if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]]; then
+    if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
       ui_print "- Magisk Alpha/Kitsune fork detected"
+      sys=/system
+    elif [[ $MAGISK_VER_CODE -ge 27005 ]] ; then
       sys=/system
     else
       sys=`magisk --path`/.magisk/mirror/system
@@ -107,7 +109,7 @@ otasurvival() {
       sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
              -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
     fi
-    if [[ ! -z $KSU_VER ]] || [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
+    if [[ ! -z $KSU_VER ]] || [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] || [[ $MAGISK_VER_CODE -ge 27005 ]] ; then
       sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
     fi
    fi
