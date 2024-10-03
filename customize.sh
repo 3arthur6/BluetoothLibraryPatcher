@@ -107,7 +107,7 @@ otasurvival() {
       sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
              -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
     fi
-    if [[ ! -z $KSU_VER ]] ; then
+    if [[ ! -z $KSU_VER ]] || [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
       sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
     fi
    fi
@@ -133,7 +133,6 @@ deltafork() {
     done
     ui_print "- Adding com.android.bluetooth to SuList"
     magiskhide add com.android.bluetooth 2>/dev/null
-    fi
   fi
 }
 
