@@ -50,15 +50,9 @@ search() {
     $TMPDIR/7z x -y -bso0 $TMPDIR/apex_payload.img lib$bits/libbluetooth_jni.so -o$TMPDIR/system
     lib=$TMPDIR/system/lib$bits/libbluetooth_jni.so
   fi
-  if [[ ! -z $KSU_VER ]] ; then
-    bb=/data/adb/ksu/bin/busybox
-  elif $BOOTMODE ; then
-    bb=`magisk --path`/.magisk/busybox/busybox
-  else
-    unzip -p $ZIPFILE busybox.tar.xz|tar x -J -C $TMPDIR busybox
-    chmod 755 $TMPDIR/busybox
-    bb=$TMPDIR/busybox
-  fi
+  unzip -p $ZIPFILE busybox$bits.tar.xz|tar x -J -C $TMPDIR busybox
+  chmod 755 $TMPDIR/busybox
+  bb=$TMPDIR/busybox
   export TMPDIR API IS64BIT lib bb
   $TMPDIR/bash $TMPDIR/hexpatch.sh
 }
@@ -80,9 +74,9 @@ patchlib() {
   elif [[ -f $lib ]] && [[ ! -z $pre ]] ; then
     mod_path=$MODPATH/`echo $lib|grep -o system.*`
     mkdir -p `dirname $mod_path`
-    xxd -p -c `stat -c %s $lib` $lib|sed "s/$pre/$post/"|xxd -pr -c `stat -c %s $lib` > $mod_path
+    $bb xxd -p -c `stat -c %s $lib` $lib|$bb sed "s/$pre/$post/"|$bb xxd -pr -c `stat -c %s $lib` > $mod_path
   fi
-  if [[ -f $lib ]] && `xxd -p $mod_path|tr -d ' \n'|grep -qm1 $post` ; then
+  if [[ -f $lib ]] && `$bb xxd -p $mod_path|$bb tr -d ' \n'|$bb grep -qm1 $post` ; then
     ui_print "- Successfully patched!"
   else
     ui_print "- Patch failed!"
