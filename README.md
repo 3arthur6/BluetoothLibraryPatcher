@@ -41,6 +41,12 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Changelog
 
+### v2.7.0
+
+- Use embedded busybox
+- Fix latest magisk canary versions
+- Fix Kitsune/Alpha
+
 ### v2.6.9
 
 - Add support for android 14 arm

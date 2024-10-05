@@ -1,1 +1,3 @@
-- Add support for android 14 arm
+- Use embedded busybox
+- Fix latest magisk canary versions
+- Fix Kitsune/Alpha
