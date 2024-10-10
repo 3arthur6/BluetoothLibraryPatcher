@@ -2,7 +2,6 @@
 # by 3arthur6
 
 check() {
-  samsung=`grep -Eqw "androidboot.odin_download|androidboot.warranty_bit|sec_debug" /proc/cmdline && echo 'true' || echo 'false'`
   if [[ ! -z $KSU_VER ]] ; then
     ui_print "- KernelSU Manager installation"
     sys=/system
@@ -20,7 +19,7 @@ check() {
     ui_print "- Recovery installation"
     sys=`dirname $(find / -mindepth 2 -maxdepth 3 -path "*system/build.prop"|head -1)`
   fi
-  if ! $samsung ; then
+  if ! `grep -Eqw "ro.build.PDA|ro.product_ship|ro.config.knox" $sys/build.prop` ; then
     ui_print "- Only for Samsung devices!"
     abort
   elif ! `grep -qw ro.build.type=user $sys/build.prop` ; then
