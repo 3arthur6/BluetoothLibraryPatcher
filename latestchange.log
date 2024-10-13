@@ -1,3 +1,2 @@
-- Use embedded busybox
-- Fix latest magisk canary versions
-- Fix Kitsune/Alpha
+- Add Support for APatch root
+- Fix samsung brand check
