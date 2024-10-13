@@ -5,6 +5,9 @@ check() {
   if [[ ! -z $KSU_VER ]] ; then
     ui_print "- KernelSU Manager installation"
     sys=/system
+  elif [[ $APATCH == true ]] ; then
+    ui_print "- APatch Manager installation"
+    sys=/system
   elif $BOOTMODE ; then
     ui_print "- Magisk Manager installation"
     if [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] ; then
@@ -102,10 +105,10 @@ otasurvival() {
       sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
              -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
     fi
-    if [[ ! -z $KSU_VER ]] || [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] || [[ $MAGISK_VER_CODE -ge 27005 ]] ; then
+    if [[ ! -z $KSU_VER ]] || [[ $APATCH == true ]] || [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] || [[ $MAGISK_VER_CODE -ge 27005 ]] ; then
       sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
     fi
-   fi
+  fi
 }
 
 deltafork() {
