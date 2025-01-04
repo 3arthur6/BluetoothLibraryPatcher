@@ -1,2 +1,2 @@
-- Add Support for APatch root
-- Fix samsung brand check
+- Not needed for A15 and above
+- Fix patching api 27 & 28

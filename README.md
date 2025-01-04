@@ -41,6 +41,16 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Changelog
 
+### v2.7.2
+
+- Not needed for A15 and above
+- Fix patching api 27 & 28
+
+### v2.7.1
+
+- Add Support for APatch root
+- Fix samsung brand check
+
 ### v2.7.0
 
 - Use embedded busybox
