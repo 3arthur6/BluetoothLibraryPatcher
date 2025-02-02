@@ -2,17 +2,19 @@
 
 ## Description
 
-This module attends to avoid losing bluetooth pairings after reboot or airplane mode switch on rooted samsung devices.
+This module attends to avoid losing Bluetooth pairings after reboot or airplane mode switch on rooted Samsung devices.
 
-It patches on the fly the bluetooth library and should support most of samsung devices on android Nougat, Oreo, Pie, 10, 11, 12, 13 and 14.
+It patches on the fly the bluetooth library and should support most of Samsung devices on Android Nougat, Oreo, Pie, 10, 11, 12, 13 and 14.
 
-This patch is NOT applicable with an aosp rom, only samsung stock/based.
+> [!WARNING]
+> This patch is **NOT** applicable with an AOSP ROM, only Samsung stock/based.
 
 ## Galaxy Watch devices support
 
 Due to limitations in Magisk, a manual step is required to fix pairing issues with Galaxy Watch devices. After installing the Magisk module, use a command line (like Terminal Emulator or Termux) to run the following commands, then reboot:
 
-*Beware! /!\ Starting from the S21 serie you can not use these commands (or you have to be SURE your vendor partition isn't read only or full) and must instead use the zip bellow to flash using TWRP. The commands below could brick your device /!\*
+> [!CAUTION]
+> Starting from the S21 series you can **NOT** use these commands (or you have to be SURE your vendor partition isn't read only or full) and must instead use the zip bellow to flash using TWRP. The commands below **could brick your device!**
 
 ```bash
 $ su
