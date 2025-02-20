@@ -32,10 +32,6 @@ check() {
   elif [[ $API -lt 24 ]] ; then
     ui_print "- Only for Android 7.0 (Nougat) and above"
     abort
-  elif [[ $API -gt 34 ]] ; then
-    ui_print "- Only for Android 14 and below"
-    ui_print "- Not needed for 15 and above"	
-    abort
   fi
 }
 
