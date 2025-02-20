@@ -1,2 +1,1 @@
-- Not needed for A15 and above
-- Fix patching api 27 & 28
+- Add A15 support

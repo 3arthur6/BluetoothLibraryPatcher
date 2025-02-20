@@ -4,7 +4,7 @@
 
 This module attends to avoid losing Bluetooth pairings after reboot or airplane mode switch on rooted Samsung devices.
 
-It patches on the fly the bluetooth library and should support most of Samsung devices on Android Nougat, Oreo, Pie, 10, 11, 12, 13 and 14.
+It patches on the fly the bluetooth library and should support most of Samsung devices on Android Nougat, Oreo, Pie, 10, 11, 12, 13, 14 and 15.
 
 > [!WARNING]
 > This patch is **NOT** applicable with an AOSP ROM, only Samsung stock/based.
@@ -42,6 +42,10 @@ With this version of magisk no additional steps are required. Just install the m
 [XDA](https://forum.xda-developers.com/galaxy-note-9/development/zip-libbluetooth-patcher-fix-losing-t4017735)
 
 ## Changelog
+
+### v2.8.0
+
+- Add A15 support
 
 ### v2.7.2
 
