@@ -38,6 +38,7 @@ check() {
 search() {
   ui_print "- Searching for relevant hex byte sequence"
   $IS64BIT && bits=64
+  [[ $API -le 35 ]] && services=services
   unzip -q $ZIPFILE hexpatch.sh -d $TMPDIR
   chmod 755 $TMPDIR/hexpatch.sh
   # Executed through bash for array handling
@@ -48,7 +49,7 @@ search() {
   else
     unzip -p $ZIPFILE 7z$bits.tar.xz|tar x -J -C $TMPDIR 7z
     chmod 755 $TMPDIR/7z
-    unzip -q $sys/apex/com.android.btservices.apex apex_payload.img -d $TMPDIR
+    unzip -q $sys/apex/com.android.bt$services.apex apex_payload.img -d $TMPDIR
     $TMPDIR/7z x -y -bso0 $TMPDIR/apex_payload.img lib$bits/libbluetooth_jni.so -o$TMPDIR/system
     lib=$TMPDIR/system/lib$bits/libbluetooth_jni.so
   fi
@@ -97,13 +98,14 @@ otasurvival() {
     rm -rf $MODPATH/service.sh
   else
     ui_print "- Creating OTA survival service"
+	[[ $API -le 35 ]] && services=services
     cp -f $ZIPFILE $MODPATH/module.zip
     if [[ $API -le 32 ]] ; then
       sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $lib|cut -d ' ' -f1`@" \
              -e "s@post_path@`echo $lib|grep -o lib.*.so`@" $MODPATH/service.sh
     else
-      sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.btservices.apex|cut -d ' ' -f1`@" \
-             -e "s@post_path@apex/com.android.btservices.apex@" $MODPATH/service.sh
+      sed -i -e "s@previouslibmd5sum_tmp@previouslibmd5sum=`md5sum $sys/apex/com.android.bt$services.apex|cut -d ' ' -f1`@" \
+             -e "s@post_path@apex/com.android.bt$services.apex@" $MODPATH/service.sh
     fi
     if [[ ! -z $KSU_VER ]] || [[ $APATCH == true ]] || [[ $MAGISK_VER == *-alpha ]] || [[ $MAGISK_VER == *-kitsune ]] || [[ $MAGISK_VER_CODE -ge 27005 ]] ; then
       sed -i 's@$(magisk --path)/.magisk/mirror@@' $MODPATH/service.sh
