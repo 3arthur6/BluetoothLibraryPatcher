@@ -5,7 +5,7 @@ check() {
   if [[ ! -z $KSU_VER ]] ; then
     ui_print "- KernelSU Manager installation"
     sys=/system
-  elif [[ $APATCH == true ]] ; then
+  elif [[ ! -z $APATCH_VER ]] ; then
     ui_print "- APatch Manager installation"
     sys=/system
   elif $BOOTMODE ; then
