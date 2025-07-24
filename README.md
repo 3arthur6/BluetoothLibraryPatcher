@@ -43,6 +43,10 @@ With this version of magisk no additional steps are required. Just install the m
 
 ## Changelog
 
+### v2.9.2
+
+- Fix Magisk Kitsune fork detection
+
 ### v2.9.1
 
 - Fix A16 patch for some devices
