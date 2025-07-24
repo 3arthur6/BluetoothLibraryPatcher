@@ -122,7 +122,7 @@ deltafork() {
     else
       earlymountdir=`magisk --path`/.magisk/mirror/early-mount
     fi
-    mkdir -p $earlymountdir/system/vendor/vintf/manifest
+    mkdir -p $earlymountdir/system/vendor/etc/vintf/manifest
     for i in `grep -lr 'security.wsm' /vendor/etc/vintf`
     do
       if [[ ! -z $i ]] ; then
